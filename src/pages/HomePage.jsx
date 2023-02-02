@@ -5,7 +5,7 @@ import ProductCard from '../components/ProductCard';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-    const { productsData, setProductsData } = useContext(DataContext);
+    const { productsData } = useContext(DataContext);
     const navigate = useNavigate();
 
     return (
