@@ -1,36 +1,37 @@
-import { Box, Button, ButtonGroup, Card, CardContent, CardMedia, Chip, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Card, CardContent, Chip, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import React from 'react';
 
 const ProductCard = ({
   title,
-  imgHref,
-  quantity
+  quantity,
+  handleButtonClick,
+  handleRemoveButtonClick
 }) => {
 
     return (
-        <Card>
-          <Box backgroundColor="lightgrey" padding={2}>
-            <CardMedia
-              sx={{ height: 180, width: '100%', borderRadius: '10px', backgroundSize: 'contain' }}
-              image={imgHref}
-              title="green iguana"
-          />
-              </Box>
+        <Card sx={{height: '180px'}}>
             <CardContent>
-              <Typography variant="subtitle1" weight="bold">
+              <Typography variant="h5" weight="bold">
                   {title}
                 </Typography>
               <Box marginTop={2}>
                 <Stack direction="row" display="flex" alignItems="center" justifyContent="space-between">
-                  <ButtonGroup variant="outlined" aria-label="Button group">
-                    <Button>+</Button>
-                    <Button>-</Button>
+                  <ButtonGroup onClick={(e) => e.stopPropagation()} variant="outlined" aria-label="Button group">
+                    <Button onClick={(e) => handleButtonClick('+', title)}>+</Button>
+                    <Button disabled={quantity === 0} onClick={(e) => handleButtonClick('-', title)}>-</Button>
                   </ButtonGroup>
                 <Chip label={quantity} variant="outlined" />
                 </Stack>
 
               </Box>
+              {
+                quantity === 0 && (
+                  <Box marginTop={2} fullWidth>
+                    <Button onClick={(e) => handleRemoveButtonClick(e, title)} fullWidth color="error" variant="contained">Remove</Button>
+                  </Box>
+                )
+              }
             </CardContent>
         </Card>
     )
